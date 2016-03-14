@@ -1,7 +1,7 @@
 //
 //  MPKitAdjust.m
 //
-//  Copyright 2015 mParticle, Inc.
+//  Copyright 2016 mParticle, Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -16,48 +16,52 @@
 //  limitations under the License.
 //
 
-#if defined(MP_KIT_ADJUST)
-
 #import "MPKitAdjust.h"
-#import "MPEnums.h"
-#import "Adjust.h"
+#import "mParticle.h"
+#import "MPKitExecStatus.h"
+#import "MPKitRegister.h"
+@import AdjustSdk;
 
 @implementation MPKitAdjust
 
++ (NSNumber *)kitCode {
+    return @68;
+}
+
++ (void)load {
+    MPKitRegister *kitRegister = [[MPKitRegister alloc] initWithName:@"Adjust" className:@"MPKitAdjust" startImmediately:YES];
+    [MParticle registerExtension:kitRegister];
+}
+
 #pragma mark MPKitInstanceProtocol methods
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration {
-    self = [super initWithConfiguration:configuration];
+- (nonnull instancetype)initWithConfiguration:(nonnull NSDictionary *)configuration startImmediately:(BOOL)startImmediately {
+    NSAssert(configuration != nil, @"Required parameter. It cannot be nil.");
+    self = [super init];
     if (!self) {
         return nil;
     }
-    
+
     NSString *appToken = configuration[@"appToken"];
-    
+
     BOOL validConfiguration = appToken != nil && (NSNull *)appToken != [NSNull null] && (appToken.length > 0);
     if (!validConfiguration) {
         return nil;
     }
-    
+
+    _configuration = configuration;
     NSString *adjEnvironment = [configuration[@"mpEnv"] integerValue] == MPEnvironmentProduction ? ADJEnvironmentProduction : ADJEnvironmentSandbox;
-    
-    ADJConfig *adjustConfig = [ADJConfig configWithAppToken:appToken
-                                                environment:adjEnvironment];
-    
+    ADJConfig *adjustConfig = [ADJConfig configWithAppToken:appToken environment:adjEnvironment];
     [Adjust appDidLaunch:adjustConfig];
-    
-    frameworkAvailable = YES;
-    started = YES;
-    self.forwardedEvents = YES;
-    self.active = YES;
+    _started = startImmediately;
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSDictionary *userInfo = @{mParticleKitInstanceKey:@(MPKitInstanceAdjust),
-                                   mParticleEmbeddedSDKInstanceKey:@(MPKitInstanceAdjust)};
-        
+        NSDictionary *userInfo = @{mParticleKitInstanceKey:[[self class] kitCode],
+                                   mParticleEmbeddedSDKInstanceKey:[[self class] kitCode]};
+
         [[NSNotificationCenter defaultCenter] postNotificationName:mParticleKitDidBecomeActiveNotification
                                                             object:nil
                                                           userInfo:userInfo];
-        
+
         [[NSNotificationCenter defaultCenter] postNotificationName:mParticleEmbeddedSDKDidBecomeActiveNotification
                                                             object:nil
                                                           userInfo:userInfo];
@@ -66,24 +70,18 @@
     return self;
 }
 
-- (void)setConfiguration:(NSDictionary *)configuration {
-    [super setConfiguration:configuration];
-}
-
 - (MPKitExecStatus *)setOptOut:(BOOL)optOut {
     [Adjust setEnabled:!optOut];
-    
+
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceAdjust) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
 
 - (MPKitExecStatus *)setDeviceToken:(NSData *)deviceToken {
     [Adjust setDeviceToken:deviceToken];
-    
+
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceAdjust) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
 
 @end
-
-#endif
