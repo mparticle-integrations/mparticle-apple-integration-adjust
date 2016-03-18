@@ -20,7 +20,7 @@
 #import "mParticle.h"
 #import "MPKitExecStatus.h"
 #import "MPKitRegister.h"
-@import AdjustSdk;
+#import "Adjust.h"
 
 @implementation MPKitAdjust
 
