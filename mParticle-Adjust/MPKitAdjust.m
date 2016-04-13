@@ -17,10 +17,11 @@
 //
 
 #import "MPKitAdjust.h"
-#import "mParticle.h"
-#import "MPKitExecStatus.h"
-#import "MPKitRegister.h"
-#import "Adjust.h"
+#ifdef COCOAPODS
+    #import <Adjust/Adjust.h>
+#else
+    #import <AdjustSdk/Adjust.h>
+#endif
 
 @implementation MPKitAdjust
 
