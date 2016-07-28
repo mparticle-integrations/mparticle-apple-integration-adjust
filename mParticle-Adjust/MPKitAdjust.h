@@ -17,10 +17,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#if defined NO_USE_FRAMEWORKS
-#import <mParticle-Apple-SDK/mParticle.h>
+#if defined(__has_include) && __has_include(<mParticle_Apple_SDK/mParticle.h>)
+#import <mParticle_Apple_SDK/mParticle.h>
 #else
-@import mParticle_Apple_SDK;
+#import "mParticle.h"
 #endif
 
 @interface MPKitAdjust : NSObject <MPKitProtocol>
