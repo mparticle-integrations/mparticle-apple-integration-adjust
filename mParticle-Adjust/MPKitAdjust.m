@@ -23,6 +23,13 @@
     #import <AdjustSdk/Adjust.h>
 #endif
 
+@interface MPKitAdjust()
+
+@property (nonatomic, strong) ADJConfig *adjustConfig;
+
+@end
+
+
 @implementation MPKitAdjust
 
 + (NSNumber *)kitCode {
@@ -44,19 +51,28 @@
 
     _configuration = configuration;
     NSString *adjEnvironment = [configuration[@"mpEnv"] integerValue] == MPEnvironmentProduction ? ADJEnvironmentProduction : ADJEnvironmentSandbox;
-    ADJConfig *adjustConfig = [ADJConfig configWithAppToken:appToken environment:adjEnvironment];
-    [Adjust appDidLaunch:adjustConfig];
-    _started = startImmediately;
+    static dispatch_once_t adjustPredicate;
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSDictionary *userInfo = @{mParticleKitInstanceKey:[[self class] kitCode]};
+    dispatch_once(&adjustPredicate, ^{
+        CFTypeRef adjustConfigRef = CFRetain((__bridge CFTypeRef)[ADJConfig configWithAppToken:appToken environment:adjEnvironment]);
+        _adjustConfig = (__bridge ADJConfig *)adjustConfigRef;
+        [Adjust appDidLaunch:_adjustConfig];
+        _started = startImmediately;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSDictionary *userInfo = @{mParticleKitInstanceKey:[[self class] kitCode]};
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:mParticleKitDidBecomeActiveNotification
-                                                            object:nil
-                                                          userInfo:userInfo];
+            [[NSNotificationCenter defaultCenter] postNotificationName:mParticleKitDidBecomeActiveNotification
+                                                                object:nil
+                                                              userInfo:userInfo];
+        });
     });
 
     return self;
+}
+
+- (id const)providerKitInstance {
+    return [self started] ? _adjustConfig : nil;
 }
 
 - (MPKitExecStatus *)setOptOut:(BOOL)optOut {
