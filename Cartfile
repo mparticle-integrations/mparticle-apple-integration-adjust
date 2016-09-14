@@ -1,2 +1,2 @@
-github "adjust/ios_sdk" == 4.8.4
-github "mparticle/mparticle-apple-sdk" ~> 6.7.0
+github "adjust/ios_sdk" == 4.10.0
+github "mparticle/mparticle-apple-sdk" ~> 6.8.0
