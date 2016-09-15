@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DB7E05A61CB819D300967FDF /* MPKitAdjust.h in Headers */ = {isa = PBXBuildFile; fileRef = DB7E05A41CB819D300967FDF /* MPKitAdjust.h */; };
+		DB7E05A61CB819D300967FDF /* MPKitAdjust.h in Headers */ = {isa = PBXBuildFile; fileRef = DB7E05A41CB819D300967FDF /* MPKitAdjust.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB7E05A71CB819D300967FDF /* MPKitAdjust.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7E05A51CB819D300967FDF /* MPKitAdjust.m */; };
 		DB9401701CB703F2007ABB18 /* mParticle_Adjust.h in Headers */ = {isa = PBXBuildFile; fileRef = DB94016F1CB703F2007ABB18 /* mParticle_Adjust.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB9401791CB70C58007ABB18 /* AdjustSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB9401771CB70C58007ABB18 /* AdjustSdk.framework */; };
