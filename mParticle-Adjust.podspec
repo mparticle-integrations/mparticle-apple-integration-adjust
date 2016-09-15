@@ -16,5 +16,5 @@ Pod::Spec.new do |s|
     s.ios.deployment_target = "8.0"
     s.ios.source_files      = 'mParticle-Adjust/*.{h,m,mm}'
     s.ios.dependency 'mParticle-Apple-SDK/mParticle', '~> 6.8'
-    s.ios.dependency 'Adjust', '4.10.0'
+    s.ios.dependency 'Adjust', '4.10.1'
 end
