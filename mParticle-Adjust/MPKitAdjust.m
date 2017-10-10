@@ -37,16 +37,18 @@
 }
 
 + (void)load {
-    MPKitRegister *kitRegister = [[MPKitRegister alloc] initWithName:@"Adjust" className:@"MPKitAdjust" startImmediately:YES];
+    MPKitRegister *kitRegister = [[MPKitRegister alloc] initWithName:@"Adjust" className:@"MPKitAdjust"];
     [MParticle registerExtension:kitRegister];
 }
 
 #pragma mark MPKitInstanceProtocol methods
-- (nonnull instancetype)initWithConfiguration:(nonnull NSDictionary *)configuration startImmediately:(BOOL)startImmediately {
-    self = [super init];
+- (MPKitExecStatus *)didFinishLaunchingWithConfiguration:(NSDictionary *)configuration {
+    MPKitExecStatus *execStatus = nil;
+
     NSString *appToken = configuration[@"appToken"];
-    if (!self || !appToken) {
-        return nil;
+    if (!appToken) {
+        execStatus = [[MPKitExecStatus alloc] initWithSDKCode:[[self class] kitCode] returnCode:MPKitReturnCodeRequirementsNotMet];
+        return execStatus;
     }
 
     _configuration = configuration;
@@ -57,7 +59,7 @@
         CFTypeRef adjustConfigRef = CFRetain((__bridge CFTypeRef)[ADJConfig configWithAppToken:appToken environment:adjEnvironment]);
         _adjustConfig = (__bridge ADJConfig *)adjustConfigRef;
         [Adjust appDidLaunch:_adjustConfig];
-        _started = startImmediately;
+        _started = YES;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDictionary *userInfo = @{mParticleKitInstanceKey:[[self class] kitCode]};
@@ -68,7 +70,8 @@
         });
     });
 
-    return self;
+    execStatus = [[MPKitExecStatus alloc] initWithSDKCode:[[self class] kitCode] returnCode:MPKitReturnCodeSuccess];
+    return execStatus;
 }
 
 - (id const)providerKitInstance {
