@@ -52,7 +52,7 @@
     }
 
     _configuration = configuration;
-    NSString *adjEnvironment = [configuration[@"mpEnv"] integerValue] == MPEnvironmentProduction ? ADJEnvironmentProduction : ADJEnvironmentSandbox;
+    NSString *adjEnvironment = [MParticle sharedInstance].environment == MPEnvironmentProduction ? ADJEnvironmentProduction : ADJEnvironmentSandbox;
     static dispatch_once_t adjustPredicate;
 
     dispatch_once(&adjustPredicate, ^{
