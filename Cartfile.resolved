@@ -1,0 +1,2 @@
+github "adjust/ios_sdk" "xamarin4.11.0"
+github "mparticle/mparticle-apple-sdk" "7.3.7"
