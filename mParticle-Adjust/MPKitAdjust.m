@@ -78,7 +78,7 @@ NSString *const MPKitAdjustErrorDomain = @"mParticle-Adjust";
 
     dispatch_once(&adjustPredicate, ^{
         CFTypeRef adjustConfigRef = CFRetain((__bridge CFTypeRef)[ADJConfig configWithAppToken:appToken environment:adjEnvironment]);
-        _adjustConfig = (__bridge ADJConfig *)adjustConfigRef;
+        self->_adjustConfig = (__bridge ADJConfig *)adjustConfigRef;
         
         NSObject<AdjustDelegate> *delegate = nil;
         if (temporaryDelegate) {
@@ -88,10 +88,10 @@ NSString *const MPKitAdjustErrorDomain = @"mParticle-Adjust";
             didSetKitDelegate = YES;
         }
         
-        _adjustConfig.delegate = delegate;
+        self->_adjustConfig.delegate = delegate;
         
-        [Adjust appDidLaunch:_adjustConfig];
-        _started = YES;
+        [Adjust appDidLaunch:self->_adjustConfig];
+        self->_started = YES;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDictionary *userInfo = @{mParticleKitInstanceKey:[[self class] kitCode]};
