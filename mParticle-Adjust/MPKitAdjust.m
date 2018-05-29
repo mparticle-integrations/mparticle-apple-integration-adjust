@@ -23,6 +23,13 @@
     #import <AdjustSdk/Adjust.h>
 #endif
 
+static NSObject<AdjustDelegate> *temporaryDelegate = nil;
+static BOOL didSetKitDelegate = NO;
+
+NSString *const MPKitAdjustAttributionResultKey = @"mParticle-Adjust Attribution Result";
+NSString *const MPKitAdjustErrorKey = @"mParticle-Adjust Error";
+NSString *const MPKitAdjustErrorDomain = @"mParticle-Adjust";
+
 @interface MPKitAdjust()
 
 @property (nonatomic, strong) ADJConfig *adjustConfig;
@@ -31,6 +38,18 @@
 
 
 @implementation MPKitAdjust
+
++ (void)setDelegate:(id)delegate {
+    if (didSetKitDelegate) {
+        NSLog(@"Warning: Adjust delegate can not be set because it is already in use by kit. \
+              If you'd like to set your own delegate, please do so before you initialize mParticle.\
+              Note: When setting your own delegate, you will not be able to use \
+              `onAttributionComplete`.");
+        return;
+    } else {
+        temporaryDelegate = (NSObject<AdjustDelegate> *)delegate;
+    }
+}
 
 + (NSNumber *)kitCode {
     return @68;
@@ -54,10 +73,23 @@
     _configuration = configuration;
     NSString *adjEnvironment = [MParticle sharedInstance].environment == MPEnvironmentProduction ? ADJEnvironmentProduction : ADJEnvironmentSandbox;
     static dispatch_once_t adjustPredicate;
+    
+    
 
     dispatch_once(&adjustPredicate, ^{
         CFTypeRef adjustConfigRef = CFRetain((__bridge CFTypeRef)[ADJConfig configWithAppToken:appToken environment:adjEnvironment]);
         _adjustConfig = (__bridge ADJConfig *)adjustConfigRef;
+        
+        NSObject<AdjustDelegate> *delegate = nil;
+        if (temporaryDelegate) {
+            delegate = temporaryDelegate;
+        } else {
+            delegate = (NSObject<AdjustDelegate> *)self;
+            didSetKitDelegate = YES;
+        }
+        
+        _adjustConfig.delegate = delegate;
+        
         [Adjust appDidLaunch:_adjustConfig];
         _started = YES;
         
@@ -91,5 +123,32 @@
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceAdjust) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
+
+- (NSError *)errorWithMessage:(NSString *)message {
+    NSError *error = [NSError errorWithDomain:MPKitAPIErrorDomain code:0 userInfo:@{MPKitAdjustErrorKey:message}];
+    return error;
+}
+
+- (void)adjustAttributionChanged:(nullable ADJAttribution *)attribution {
+    NSDictionary *attributionDictionary = nil;
+    
+    if (attribution) {
+        attributionDictionary = attribution.dictionary;
+    } else {
+        attributionDictionary = @{};
+    }
+    
+    NSMutableDictionary *outerDictionary = [NSMutableDictionary dictionary];
+    
+    if (attributionDictionary) {
+        outerDictionary[MPKitAdjustAttributionResultKey] = attributionDictionary;
+    }
+    
+    MPAttributionResult *attributionResult = [[MPAttributionResult alloc] init];
+    attributionResult.linkInfo = outerDictionary;
+    
+    [_kitApi onAttributionCompleteWithResult:attributionResult error:nil];
+}
+
 
 @end
