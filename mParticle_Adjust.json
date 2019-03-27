@@ -28,5 +28,8 @@
 	},
 	{
 		"7.9.0": "https://github.com/mparticle-integrations/mparticle-apple-integration-adjust/releases/download/7.9.0/mParticle_Adjust.framework.zip"
+	},
+	{
+		"7.9.1": "https://github.com/mparticle-integrations/mparticle-apple-integration-adjust/releases/download/7.9.1/mParticle_Adjust.framework.zip"
 	}
 ]
