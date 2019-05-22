@@ -1,8 +1,8 @@
 #import "MPKitAdjust.h"
 #ifdef COCOAPODS
-    #import <Adjust/Adjust.h>
+#import <Adjust/Adjust.h>
 #else
-    #import <AdjustSdk/Adjust.h>
+#import <AdjustSdk/Adjust.h>
 #endif
 
 static NSObject<AdjustDelegate> *temporaryDelegate = nil;
@@ -45,19 +45,19 @@ NSString *const MPKitAdjustErrorDomain = @"mParticle-Adjust";
 #pragma mark MPKitInstanceProtocol methods
 - (MPKitExecStatus *)didFinishLaunchingWithConfiguration:(NSDictionary *)configuration {
     MPKitExecStatus *execStatus = nil;
-
+    
     NSString *appToken = configuration[@"appToken"];
     if (!appToken) {
         execStatus = [[MPKitExecStatus alloc] initWithSDKCode:[[self class] kitCode] returnCode:MPKitReturnCodeRequirementsNotMet];
         return execStatus;
     }
-
+    
     _configuration = configuration;
     NSString *adjEnvironment = [MParticle sharedInstance].environment == MPEnvironmentProduction ? ADJEnvironmentProduction : ADJEnvironmentSandbox;
     static dispatch_once_t adjustPredicate;
     
     
-
+    
     dispatch_once(&adjustPredicate, ^{
         CFTypeRef adjustConfigRef = CFRetain((__bridge CFTypeRef)[ADJConfig configWithAppToken:appToken environment:adjEnvironment]);
         self->_adjustConfig = (__bridge ADJConfig *)adjustConfigRef;
@@ -77,13 +77,13 @@ NSString *const MPKitAdjustErrorDomain = @"mParticle-Adjust";
         
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDictionary *userInfo = @{mParticleKitInstanceKey:[[self class] kitCode]};
-
+            
             [[NSNotificationCenter defaultCenter] postNotificationName:mParticleKitDidBecomeActiveNotification
                                                                 object:nil
                                                               userInfo:userInfo];
         });
     });
-
+    
     execStatus = [[MPKitExecStatus alloc] initWithSDKCode:[[self class] kitCode] returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
@@ -94,14 +94,14 @@ NSString *const MPKitAdjustErrorDomain = @"mParticle-Adjust";
 
 - (MPKitExecStatus *)setOptOut:(BOOL)optOut {
     [Adjust setEnabled:!optOut];
-
+    
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceAdjust) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
 
 - (MPKitExecStatus *)setDeviceToken:(NSData *)deviceToken {
     [Adjust setDeviceToken:deviceToken];
-
+    
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceAdjust) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
