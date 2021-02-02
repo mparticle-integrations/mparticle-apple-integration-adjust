@@ -1,8 +1,12 @@
 #import "MPKitAdjust.h"
-#ifdef COCOAPODS
-#import <Adjust/Adjust.h>
+#if SWIFT_PACKAGE
+  #import "Adjust.h"
 #else
-#import <AdjustSdk/Adjust.h>
+  #ifdef COCOAPODS
+  #import <Adjust/Adjust.h>
+  #else
+  #import <AdjustSdk/Adjust.h>
+  #endif
 #endif
 
 static NSObject<AdjustDelegate> *temporaryDelegate = nil;
