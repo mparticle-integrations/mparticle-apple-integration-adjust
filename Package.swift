@@ -4,12 +4,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "mparticle-apple-integration-adjust",
+    name: "mParticle-Adjust",
     platforms: [ .iOS(.v9), .tvOS(.v9) ],
     products: [
         .library(
-            name: "mparticle-apple-integration-adjust",
-            targets: ["mparticle-apple-integration-adjust"]),
+            name: "mParticle-Adjust",
+            targets: ["mParticle-Adjust"]),
     ],
     dependencies: [
       .package(name: "mParticle-Apple-SDK",
@@ -21,7 +21,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "mparticle-apple-integration-adjust",
+            name: "mParticle-Adjust",
             dependencies: [
               .byName(name: "mParticle-Apple-SDK"),
               .byName(name: "Adjust")
