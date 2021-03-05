@@ -137,11 +137,13 @@ NSString *const MPKitAdjustErrorDomain = @"mParticle-Adjust";
 }
 
 - (MPKitExecStatus *)setATTStatus:(MPATTAuthorizationStatus)status withATTStatusTimestampMillis:(NSNumber *)attStatusTimestampMillis  API_AVAILABLE(ios(14)){
-    [Adjust requestTrackingAuthorizationWithCompletionHandler:^(NSUInteger status) {
-        NSLog(@"Adjust: App Tracking Transparency Authorization Status set to %lu", (unsigned long)status);
-    }];
+    if (status != MPATTAuthorizationStatusNotDetermined) {
+        [Adjust requestTrackingAuthorizationWithCompletionHandler:^(NSUInteger status) {
+            NSLog(@"Adjust: App Tracking Transparency Authorization Status set to %lu", (unsigned long)status);
+        }];
+    }
 
-    return [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceKochava) returnCode:MPKitReturnCodeSuccess];
+    return [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceAdjust) returnCode:MPKitReturnCodeSuccess];
 }
 
 
