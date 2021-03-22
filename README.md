@@ -7,13 +7,13 @@ This repository contains the [Adjust](https://www.adjust.com) integration for th
 1. Add the kit dependency to your app's Podfile or Cartfile:
 
     ```
-    pod 'mParticle-Adjust', '~> 7.0'
+    pod 'mParticle-Adjust', '~> 8.0'
     ```
 
     OR
 
     ```
-    github "mparticle-integrations/mparticle-apple-integration-adjust" ~> 7.0
+    github "mparticle-integrations/mparticle-apple-integration-adjust" ~> 8.0
     ```
 
 2. Follow the mParticle iOS SDK [quick-start](https://github.com/mParticle/mparticle-apple-sdk), then rebuild and launch your app, and verify that you see `"Included kits: { Adjust }"` in your Xcode console 
