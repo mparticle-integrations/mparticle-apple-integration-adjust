@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
     s.social_media_url = "https://twitter.com/mparticle"
 
     s.ios.deployment_target = "9.0"
-    s.ios.source_files      = 'mParticle-Adjust/*.{h,m,mm}'
+    s.ios.source_files      = 'Sources/**/*.{h,m,mm}'
     s.ios.dependency 'mParticle-Apple-SDK/mParticle', '~> 8.2'
     s.ios.dependency 'Adjust', '~> 4.23'
 end
