@@ -12,6 +12,7 @@
 static NSObject<AdjustDelegate> *temporaryDelegate = nil;
 static BOOL didSetKitDelegate = NO;
 
+static NSString *const adjustDeviceIdentifierIntegrationAttributeKey = @"adid";
 NSString *const MPKitAdjustAttributionResultKey = @"mParticle-Adjust Attribution Result";
 NSString *const MPKitAdjustErrorKey = @"mParticle-Adjust Error";
 NSString *const MPKitAdjustErrorDomain = @"mParticle-Adjust";
@@ -19,6 +20,7 @@ NSString *const MPKitAdjustErrorDomain = @"mParticle-Adjust";
 @interface MPKitAdjust()
 
 @property (nonatomic, strong) ADJConfig *adjustConfig;
+@property (nonatomic) BOOL hasSetADID;
 
 @end
 
@@ -79,6 +81,12 @@ NSString *const MPKitAdjustErrorDomain = @"mParticle-Adjust";
         [Adjust appDidLaunch:self->_adjustConfig];
         self->_started = YES;
         
+        NSString *adid = Adjust.adid;
+        if (adid != nil && adid.length > 0) {
+            [[MParticle sharedInstance] setIntegrationAttributes:@{adjustDeviceIdentifierIntegrationAttributeKey: adid} forKit:[[self class] kitCode]];
+            _hasSetADID = YES;
+        }
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDictionary *userInfo = @{mParticleKitInstanceKey:[[self class] kitCode]};
             
@@ -124,6 +132,12 @@ NSString *const MPKitAdjustErrorDomain = @"mParticle-Adjust";
         attributionDictionary = @{};
     }
     
+    NSString *adid = attributionDictionary[adjustDeviceIdentifierIntegrationAttributeKey];
+    if (adid != nil && adid.length > 0) {
+        [[MParticle sharedInstance] setIntegrationAttributes:@{adjustDeviceIdentifierIntegrationAttributeKey: adid} forKit:[[self class] kitCode]];
+        _hasSetADID = YES;
+    }
+    
     NSMutableDictionary *outerDictionary = [NSMutableDictionary dictionary];
     
     if (attributionDictionary) {
@@ -146,5 +160,8 @@ NSString *const MPKitAdjustErrorDomain = @"mParticle-Adjust";
     return [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceAdjust) returnCode:MPKitReturnCodeSuccess];
 }
 
+- (BOOL)shouldDelayMParticleUpload {
+    return !_hasSetADID;
+}
 
 @end
