@@ -101,7 +101,7 @@ NSString *const MPKitAdjustErrorDomain = @"mParticle-Adjust";
 }
 
 - (id const)providerKitInstance {
-    return [self started] ? _adjustConfig : nil;
+    return [self started] ? self : nil;
 }
 
 - (MPKitExecStatus *)setOptOut:(BOOL)optOut {
