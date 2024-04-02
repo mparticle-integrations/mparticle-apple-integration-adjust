@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53D881FB2BBCA36C0066BB30 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 53D881FA2BBCA36C0066BB30 /* PrivacyInfo.xcprivacy */; };
 		DB9401791CB70C58007ABB18 /* AdjustSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB9401771CB70C58007ABB18 /* AdjustSdk.framework */; };
 		DB94017A1CB70C58007ABB18 /* mParticle_Apple_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB9401781CB70C58007ABB18 /* mParticle_Apple_SDK.framework */; };
 		E0CE254525CC583A00E443A6 /* MPKitAdjust.h in Headers */ = {isa = PBXBuildFile; fileRef = E0CE254125CC583900E443A6 /* MPKitAdjust.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		53D881FA2BBCA36C0066BB30 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		DB94016C1CB703F2007ABB18 /* mParticle_Adjust.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = mParticle_Adjust.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB9401771CB70C58007ABB18 /* AdjustSdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdjustSdk.framework; path = Carthage/Build/iOS/AdjustSdk.framework; sourceTree = "<group>"; };
 		DB9401781CB70C58007ABB18 /* mParticle_Apple_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = mParticle_Apple_SDK.framework; path = Carthage/Build/iOS/mParticle_Apple_SDK.framework; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 			children = (
 				E0CE254025CC583900E443A6 /* include */,
 				E0CE254325CC583900E443A6 /* MPKitAdjust.m */,
+				53D881FA2BBCA36C0066BB30 /* PrivacyInfo.xcprivacy */,
 			);
 			path = "mParticle-Adjust";
 			sourceTree = "<group>";
@@ -153,6 +156,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53D881FB2BBCA36C0066BB30 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

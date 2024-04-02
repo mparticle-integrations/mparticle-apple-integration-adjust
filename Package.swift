@@ -17,7 +17,7 @@ let package = Package(
                .upToNextMajor(from: "8.0.0")),
       .package(name: "Adjust",
                url: "https://github.com/adjust/ios_sdk",
-               .upToNextMajor(from: "4.20.0")),
+               .upToNextMajor(from: "4.38.0")),
     ],
     targets: [
         .target(
