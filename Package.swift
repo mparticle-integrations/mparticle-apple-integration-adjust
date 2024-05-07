@@ -14,7 +14,7 @@ let package = Package(
     dependencies: [
       .package(name: "mParticle-Apple-SDK",
                url: "https://github.com/mParticle/mparticle-apple-sdk",
-               .upToNextMajor(from: "8.0.0")),
+               .upToNextMajor(from: "8.22.0")),
       .package(name: "Adjust",
                url: "https://github.com/adjust/ios_sdk",
                .upToNextMajor(from: "4.38.0")),
@@ -25,7 +25,8 @@ let package = Package(
             dependencies: [
               .byName(name: "mParticle-Apple-SDK"),
               .byName(name: "Adjust")
-            ]
+            ],
+            resources: [.process("PrivacyInfo.xcprivacy")]
         )
     ]
 )

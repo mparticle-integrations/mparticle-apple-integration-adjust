@@ -3,23 +3,23 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		53D881FB2BBCA36C0066BB30 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 53D881FA2BBCA36C0066BB30 /* PrivacyInfo.xcprivacy */; };
-		DB9401791CB70C58007ABB18 /* AdjustSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB9401771CB70C58007ABB18 /* AdjustSdk.framework */; };
-		DB94017A1CB70C58007ABB18 /* mParticle_Apple_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB9401781CB70C58007ABB18 /* mParticle_Apple_SDK.framework */; };
+		535EA0BF2BEA7E4800C36A31 /* AdjustSdk.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 535EA0BD2BEA7E4800C36A31 /* AdjustSdk.xcframework */; };
+		535EA0C02BEA7E4800C36A31 /* mParticle_Apple_SDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 535EA0BE2BEA7E4800C36A31 /* mParticle_Apple_SDK.xcframework */; };
+		53DE7F732BEA80F200907F6D /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 53DE7F722BEA80F200907F6D /* PrivacyInfo.xcprivacy */; };
 		E0CE254525CC583A00E443A6 /* MPKitAdjust.h in Headers */ = {isa = PBXBuildFile; fileRef = E0CE254125CC583900E443A6 /* MPKitAdjust.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E0CE254625CC583A00E443A6 /* mParticle_Adjust.h in Headers */ = {isa = PBXBuildFile; fileRef = E0CE254225CC583900E443A6 /* mParticle_Adjust.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E0CE254725CC583A00E443A6 /* MPKitAdjust.m in Sources */ = {isa = PBXBuildFile; fileRef = E0CE254325CC583900E443A6 /* MPKitAdjust.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		53D881FA2BBCA36C0066BB30 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		535EA0BD2BEA7E4800C36A31 /* AdjustSdk.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:QGUGW9AUMK:adeven GmbH"; lastKnownFileType = wrapper.xcframework; name = AdjustSdk.xcframework; path = Carthage/Build/AdjustSdk.xcframework; sourceTree = "<group>"; };
+		535EA0BE2BEA7E4800C36A31 /* mParticle_Apple_SDK.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:DLD43Y3TRP:mParticle, inc"; lastKnownFileType = wrapper.xcframework; name = mParticle_Apple_SDK.xcframework; path = Carthage/Build/mParticle_Apple_SDK.xcframework; sourceTree = "<group>"; };
+		53DE7F722BEA80F200907F6D /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		DB94016C1CB703F2007ABB18 /* mParticle_Adjust.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = mParticle_Adjust.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB9401771CB70C58007ABB18 /* AdjustSdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdjustSdk.framework; path = Carthage/Build/iOS/AdjustSdk.framework; sourceTree = "<group>"; };
-		DB9401781CB70C58007ABB18 /* mParticle_Apple_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = mParticle_Apple_SDK.framework; path = Carthage/Build/iOS/mParticle_Apple_SDK.framework; sourceTree = "<group>"; };
 		E0CE254125CC583900E443A6 /* MPKitAdjust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPKitAdjust.h; sourceTree = "<group>"; };
 		E0CE254225CC583900E443A6 /* mParticle_Adjust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mParticle_Adjust.h; sourceTree = "<group>"; };
 		E0CE254325CC583900E443A6 /* MPKitAdjust.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPKitAdjust.m; sourceTree = "<group>"; };
@@ -31,8 +31,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB9401791CB70C58007ABB18 /* AdjustSdk.framework in Frameworks */,
-				DB94017A1CB70C58007ABB18 /* mParticle_Apple_SDK.framework in Frameworks */,
+				535EA0BF2BEA7E4800C36A31 /* AdjustSdk.xcframework in Frameworks */,
+				535EA0C02BEA7E4800C36A31 /* mParticle_Apple_SDK.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,8 +42,8 @@
 		DB9401621CB703F2007ABB18 = {
 			isa = PBXGroup;
 			children = (
-				DB9401771CB70C58007ABB18 /* AdjustSdk.framework */,
-				DB9401781CB70C58007ABB18 /* mParticle_Apple_SDK.framework */,
+				535EA0BD2BEA7E4800C36A31 /* AdjustSdk.xcframework */,
+				535EA0BE2BEA7E4800C36A31 /* mParticle_Apple_SDK.xcframework */,
 				E0CE253E25CC583900E443A6 /* Sources */,
 				DB94016D1CB703F2007ABB18 /* Products */,
 			);
@@ -71,7 +71,7 @@
 			children = (
 				E0CE254025CC583900E443A6 /* include */,
 				E0CE254325CC583900E443A6 /* MPKitAdjust.m */,
-				53D881FA2BBCA36C0066BB30 /* PrivacyInfo.xcprivacy */,
+				53DE7F722BEA80F200907F6D /* PrivacyInfo.xcprivacy */,
 			);
 			path = "mParticle-Adjust";
 			sourceTree = "<group>";
@@ -156,7 +156,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53D881FB2BBCA36C0066BB30 /* PrivacyInfo.xcprivacy in Resources */,
+				53DE7F732BEA80F200907F6D /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,7 +304,11 @@
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mparticle.mParticle-Adjust";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -327,7 +331,11 @@
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mparticle.mParticle-Adjust";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
