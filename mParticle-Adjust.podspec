@@ -15,6 +15,7 @@ Pod::Spec.new do |s|
 
     s.ios.deployment_target = "9.0"
     s.ios.source_files      = 'Sources/**/*.{h,m,mm}'
-    s.ios.dependency 'mParticle-Apple-SDK/mParticle', '~> 8.2'
+    s.ios.resource_bundles  = { 'mParticle-Adjust-Privacy' => ['Sources/mParticle-Adjust/PrivacyInfo.xcprivacy'] }
+    s.ios.dependency 'mParticle-Apple-SDK/mParticle', '~> 8.22'
     s.ios.dependency 'Adjust', '~> 4.38'
 end
