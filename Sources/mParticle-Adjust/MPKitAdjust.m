@@ -1,11 +1,7 @@
 #import "MPKitAdjust.h"
-#if SWIFT_PACKAGE
-  #import "Adjust.h"
-#else
-  #import <AdjustSdk/Adjust.h>
-  #import <AdjustSdk/ADJConfig.h>
-  #import <AdjustSdk/ADJAttribution.h>
-#endif
+#import <AdjustSdk/Adjust.h>
+#import <AdjustSdk/ADJConfig.h>
+#import <AdjustSdk/ADJAttribution.h>
 
 static NSObject<AdjustDelegate> *temporaryDelegate = nil;
 static BOOL didSetKitDelegate = NO;
