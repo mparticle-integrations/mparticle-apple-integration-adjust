@@ -1,13 +1,7 @@
 #import "MPKitAdjust.h"
-#if SWIFT_PACKAGE
-  #import "Adjust.h"
-#else
-  #ifdef COCOAPODS
-  #import <Adjust/Adjust.h>
-  #else
-  #import <AdjustSdk/Adjust.h>
-  #endif
-#endif
+#import <AdjustSdk/Adjust.h>
+#import <AdjustSdk/ADJConfig.h>
+#import <AdjustSdk/ADJAttribution.h>
 
 static NSObject<AdjustDelegate> *temporaryDelegate = nil;
 static BOOL didSetKitDelegate = NO;
@@ -65,7 +59,8 @@ NSString *const MPKitAdjustErrorDomain = @"mParticle-Adjust";
     
     
     dispatch_once(&adjustPredicate, ^{
-        CFTypeRef adjustConfigRef = CFRetain((__bridge CFTypeRef)[ADJConfig configWithAppToken:appToken environment:adjEnvironment]);
+        CFTypeRef adjustConfigRef = CFRetain((__bridge CFTypeRef)[[ADJConfig alloc] initWithAppToken:appToken
+                                                                                         environment:adjEnvironment]);
         self->_adjustConfig = (__bridge ADJConfig *)adjustConfigRef;
         
         NSObject<AdjustDelegate> *delegate = nil;
@@ -78,14 +73,15 @@ NSString *const MPKitAdjustErrorDomain = @"mParticle-Adjust";
         
         self->_adjustConfig.delegate = delegate;
         
-        [Adjust appDidLaunch:self->_adjustConfig];
+        [Adjust initSdk:self->_adjustConfig];
         self->_started = YES;
         
-        NSString *adid = Adjust.adid;
-        if (adid != nil && adid.length > 0) {
-            [[MParticle sharedInstance] setIntegrationAttributes:@{adjustDeviceIdentifierIntegrationAttributeKey: adid} forKit:[[self class] kitCode]];
-            _hasSetADID = YES;
-        }
+        [Adjust adidWithCompletionHandler:^(NSString * _Nullable adid) {
+            if (adid != nil && adid.length > 0) {
+                [[MParticle sharedInstance] setIntegrationAttributes:@{adjustDeviceIdentifierIntegrationAttributeKey: adid} forKit:[[self class] kitCode]];
+                self->_hasSetADID = YES;
+            }
+        }];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDictionary *userInfo = @{mParticleKitInstanceKey:[[self class] kitCode]};
@@ -105,14 +101,18 @@ NSString *const MPKitAdjustErrorDomain = @"mParticle-Adjust";
 }
 
 - (MPKitExecStatus *)setOptOut:(BOOL)optOut {
-    [Adjust setEnabled:!optOut];
+    if (optOut) {
+        [Adjust disable];
+    } else {
+        [Adjust enable];
+    }
     
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceAdjust) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
 
 - (MPKitExecStatus *)setDeviceToken:(NSData *)deviceToken {
-    [Adjust setDeviceToken:deviceToken];
+    [Adjust setPushToken:deviceToken];
     
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceAdjust) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
@@ -152,7 +152,7 @@ NSString *const MPKitAdjustErrorDomain = @"mParticle-Adjust";
 
 - (MPKitExecStatus *)setATTStatus:(MPATTAuthorizationStatus)status withATTStatusTimestampMillis:(NSNumber *)attStatusTimestampMillis  API_AVAILABLE(ios(14)){
     if (status != MPATTAuthorizationStatusNotDetermined) {
-        [Adjust requestTrackingAuthorizationWithCompletionHandler:^(NSUInteger status) {
+        [Adjust requestAppTrackingAuthorizationWithCompletionHandler:^(NSUInteger status) {
             NSLog(@"Adjust: App Tracking Transparency Authorization Status set to %lu", (unsigned long)status);
         }];
     }

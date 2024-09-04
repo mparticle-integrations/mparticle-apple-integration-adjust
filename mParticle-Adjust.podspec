@@ -17,5 +17,5 @@ Pod::Spec.new do |s|
     s.ios.source_files      = 'Sources/**/*.{h,m,mm}'
     s.ios.resource_bundles  = { 'mParticle-Adjust-Privacy' => ['Sources/mParticle-Adjust/PrivacyInfo.xcprivacy'] }
     s.ios.dependency 'mParticle-Apple-SDK/mParticle', '~> 8.22'
-    s.ios.dependency 'Adjust', '~> 4.38'
+    s.ios.dependency 'Adjust', '~> 5.0'
 end
