@@ -1,3 +1,15 @@
+# [8.3.0](https://github.com/mparticle-integrations/mparticle-apple-integration-adjust/compare/v8.2.0...v8.3.0) (2024-09-04)
+
+
+### Bug Fixes
+
+* Update pod spec ([d071578](https://github.com/mparticle-integrations/mparticle-apple-integration-adjust/commit/d07157899c53565ead293f6fabcf684743076322))
+
+
+### Features
+
+* Update to Adjust SDK 5.0.0 ([#13](https://github.com/mparticle-integrations/mparticle-apple-integration-adjust/issues/13)) ([cbeafa1](https://github.com/mparticle-integrations/mparticle-apple-integration-adjust/commit/cbeafa18f62e502c395ad7f97e2217c9bbf368f5))
+
 # [8.2.0](https://github.com/mparticle-integrations/mparticle-apple-integration-adjust/compare/v8.1.0...v8.2.0) (2024-05-07)
 
 
